@@ -1,4 +1,4 @@
-# ad
+# Acceso a Datos / Data Access
 
 Repositorio de programas creados para la asignatura Acceso a Datos del curso Desarrollo de Aplicaciones Multiplataforma.
 
