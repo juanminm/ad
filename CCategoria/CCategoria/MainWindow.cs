@@ -20,7 +20,7 @@ public partial class MainWindow : Gtk.Window
         ListStore listStore = new ListStore(typeof(string), typeof(string));
         treeView.Model = listStore;
 
-        fillListStore(listStore);
+        FillListStore(listStore);
 
         newAction.Activated += delegate {
             new CategoriaView();
@@ -29,11 +29,11 @@ public partial class MainWindow : Gtk.Window
         refreshAction.Activated += delegate {
             listStore.Clear();
 
-            fillListStore(listStore);
+            FillListStore(listStore);
         };
     }
 
-    private void fillListStore(ListStore listStore)
+    private void FillListStore(ListStore listStore)
     {
         IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
         IDataReader dataReader;
