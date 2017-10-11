@@ -18,51 +18,39 @@ public partial class MainWindow : Gtk.Window
         treeView.AppendColumn("id", new CellRendererText(), "text", 0);
         treeView.AppendColumn("nombre", new CellRendererText(), "text", 1);
         ListStore listStore = new ListStore(typeof(string), typeof(string));
-		treeView.Model = listStore;
+        treeView.Model = listStore;
 
-		String[,] arrayDatos = ObtenerDatos();
-
-        for (int i = 0; i < arrayDatos.GetLength(0); i++)
-        {
-            listStore.AppendValues(arrayDatos[i, 0], arrayDatos[i, 1]);
-        }
+        fillListStore(listStore);
 
         newAction.Activated += delegate {
             new CategoriaView();
-		};
+        };
+
+        refreshAction.Activated += delegate {
+            listStore.Clear();
+
+            fillListStore(listStore);
+        };
     }
 
-	private String[,] ObtenerDatos()
-	{
-		String[,] arrayDatos;
-		IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-		IDataReader dataReader;
-		int count = 0;
-
-		dbCommand.CommandText = "SELECT COUNT(*) FROM categoria";
-		dataReader = dbCommand.ExecuteReader();
-		dataReader.Read();
-		count = dataReader.GetInt32(0);
-		dataReader.Close();
-
-		arrayDatos = new String[count, 2];
-		dbCommand.CommandText = "SELECT * FROM categoria";
-		dataReader = dbCommand.ExecuteReader();
-
-		for (int i = 0; dataReader.Read(); i++)
-		{
-			arrayDatos[i, 0] = dataReader.GetString(0);
-			arrayDatos[i, 1] = dataReader.GetString(1);
-		}
-
-		dataReader.Close();
-		return arrayDatos;
-	}
-
-	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+    private void fillListStore(ListStore listStore)
     {
-		App.Instance.Connection.Close();
-		Application.Quit();
+        IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+        IDataReader dataReader;
+        dbCommand.CommandText = "SELECT * FROM categoria";
+        dataReader = dbCommand.ExecuteReader();
+
+        while (dataReader.Read())
+        {
+            listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombre"].ToString());
+        }
+        dataReader.Close();
+    }
+
+    protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+    {
+        App.Instance.Connection.Close();
+        Application.Quit();
         a.RetVal = true;
     }
 }
