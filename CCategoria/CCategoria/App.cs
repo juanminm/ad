@@ -7,7 +7,7 @@ namespace CCategoria
     {
         private IDbConnection connection;
 
-        public App()
+        private App()
         {
         }
 
