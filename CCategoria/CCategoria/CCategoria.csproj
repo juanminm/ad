@@ -66,6 +66,7 @@
     <Compile Include="CategoriaView.cs" />
     <Compile Include="gtk-gui\CCategoria.CategoriaView.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="DbCommandHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

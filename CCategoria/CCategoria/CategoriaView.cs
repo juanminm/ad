@@ -12,12 +12,11 @@ namespace CCategoria
 
             saveAction.Activated += delegate {
                 IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+
                 dbCommand.CommandText = "INSERT INTO `categoria` (`nombre`) " +
                     "VALUES (@nombre)";
-                IDbDataParameter dbDataParameter = dbCommand.CreateParameter();
-                dbDataParameter.ParameterName = "nombre";
-                dbDataParameter.Value = entryNombre.Text;
-                dbCommand.Parameters.Add(dbDataParameter);
+                DbCommandHelper.AddParameter(dbCommand, "nombre", entryNombre.Text);
+
                 dbCommand.ExecuteNonQuery();
 
                 Destroy();
