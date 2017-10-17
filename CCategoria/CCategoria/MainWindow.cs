@@ -11,6 +11,8 @@ public partial class MainWindow : Gtk.Window
     {
         Build();
 
+        deleteAction.Sensitive = false;
+
         App.Instance.Connection = new MySqlConnection("server=localhost;"
                 + "database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
@@ -30,6 +32,32 @@ public partial class MainWindow : Gtk.Window
             listStore.Clear();
 
             FillListStore(listStore);
+        };
+
+        treeView.Selection.Changed += delegate {
+            deleteAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
+        };
+
+        deleteAction.Activated += delegate {
+            MessageDialog messageDialog = new MessageDialog(
+                this, DialogFlags.Modal, MessageType.Question,
+                ButtonsType.YesNo, "¿Quieres eliminar el registro?");
+
+            ResponseType response = (ResponseType)messageDialog.Run();
+            if (response == ResponseType.Yes)
+            {
+                IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+
+                treeView.Selection.GetSelected(out TreeIter treeIter);
+
+                dbCommand.CommandText = "DELETE FROM `categoria` (`nombre`) " +
+                    "WHERE `id` = @id";
+                DbCommandHelper.AddParameter(dbCommand, "id",
+                                             listStore.GetValue(treeIter, 0));
+                dbCommand.ExecuteNonQuery();
+
+                Destroy();
+            }
         };
     }
 
