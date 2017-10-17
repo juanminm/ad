@@ -11,8 +11,8 @@ public partial class MainWindow : Gtk.Window
     {
         Build();
 
-        App.Instance.Connection = new MySqlConnection("server=localhost;database"
-                + "=dbprueba;user=root;password=sistemas");
+        App.Instance.Connection = new MySqlConnection("server=localhost;"
+                + "database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
 
         treeView.AppendColumn("id", new CellRendererText(), "text", 0);
@@ -37,12 +37,13 @@ public partial class MainWindow : Gtk.Window
     {
         IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
         IDataReader dataReader;
-        dbCommand.CommandText = "SELECT * FROM categoria";
+        dbCommand.CommandText = "SELECT * FROM `categoria` ORDER BY `id`";
         dataReader = dbCommand.ExecuteReader();
 
         while (dataReader.Read())
         {
-            listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombre"].ToString());
+            listStore.AppendValues(dataReader["id"].ToString(),
+                                   dataReader["nombre"].ToString());
         }
         dataReader.Close();
     }
