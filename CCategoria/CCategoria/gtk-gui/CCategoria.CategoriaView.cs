@@ -14,9 +14,9 @@ namespace CCategoria
 
 		private global::Gtk.Table table1;
 
-		private global::Gtk.Entry entryNombre;
+		private global::Gtk.Label Categoria;
 
-		private global::Gtk.Label label1;
+		private global::Gtk.Entry entryNombre;
 
 		protected virtual void Build()
 		{
@@ -52,23 +52,23 @@ namespace CCategoria
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
+			this.Categoria = new global::Gtk.Label();
+			this.Categoria.Name = "Categoria";
+			this.Categoria.LabelProp = global::Mono.Unix.Catalog.GetString("Nueva categoria:");
+			this.table1.Add(this.Categoria);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.Categoria]));
+			w3.XOptions = ((global::Gtk.AttachOptions)(4));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
 			this.entryNombre = new global::Gtk.Entry();
 			this.entryNombre.CanFocus = true;
 			this.entryNombre.Name = "entryNombre";
 			this.entryNombre.IsEditable = true;
 			this.entryNombre.InvisibleChar = '•';
 			this.table1.Add(this.entryNombre);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.entryNombre]));
-			w3.LeftAttach = ((uint)(1));
-			w3.RightAttach = ((uint)(2));
-			w3.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.label1 = new global::Gtk.Label();
-			this.label1.Name = "label1";
-			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("label1");
-			this.table1.Add(this.label1);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
-			w4.XOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.entryNombre]));
+			w4.LeftAttach = ((uint)(1));
+			w4.RightAttach = ((uint)(2));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox2.Add(this.table1);
 			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.table1]));
