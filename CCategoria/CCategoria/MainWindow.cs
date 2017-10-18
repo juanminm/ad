@@ -22,7 +22,8 @@ public partial class MainWindow : Gtk.Window
         ListStore listStore = new ListStore(typeof(string), typeof(string));
         treeView.Model = listStore;
 
-        FillListStore(listStore);
+        TreeViewHelper.Fill(treeView, "SELECT `id`, `nombre` FROM `categoria` "
+                            + "ORDER BY `id`");
 
         newAction.Activated += delegate {
             new CategoriaView();
@@ -31,7 +32,8 @@ public partial class MainWindow : Gtk.Window
         refreshAction.Activated += delegate {
             listStore.Clear();
 
-            FillListStore(listStore);
+            TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` ORDER BY "
+                                + "`id`");
         };
 
         treeView.Selection.Changed += delegate {
@@ -59,21 +61,6 @@ public partial class MainWindow : Gtk.Window
                 Destroy();
             }
         };
-    }
-
-    private void FillListStore(ListStore listStore)
-    {
-        IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-        IDataReader dataReader;
-        dbCommand.CommandText = "SELECT * FROM `categoria` ORDER BY `id`";
-        dataReader = dbCommand.ExecuteReader();
-
-        while (dataReader.Read())
-        {
-            listStore.AppendValues(dataReader["id"].ToString(),
-                                   dataReader["nombre"].ToString());
-        }
-        dataReader.Close();
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
