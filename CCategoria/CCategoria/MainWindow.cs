@@ -40,14 +40,7 @@ public partial class MainWindow : Gtk.Window
         };
 
         deleteAction.Activated += delegate {
-            MessageDialog messageDialog = new MessageDialog(
-                this, DialogFlags.Modal, MessageType.Question,
-                ButtonsType.YesNo, "¿Quieres eliminar el registro?");
-
-            messageDialog.Title = Title;
-
-            ResponseType response = (ResponseType)messageDialog.Run();
-            if (response == ResponseType.Yes)
+            if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
             {
                 IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
 
@@ -58,8 +51,6 @@ public partial class MainWindow : Gtk.Window
                 DbCommandHelper.AddParameter(dbCommand, "id",
                                              listStore.GetValue(treeIter, 0));
                 dbCommand.ExecuteNonQuery();
-
-                Destroy();
             }
         };
     }
