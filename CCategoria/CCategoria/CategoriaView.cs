@@ -10,6 +10,8 @@ namespace CCategoria
         {
             this.Build();
 
+            Title = "Categoria";
+
             saveAction.Activated += delegate {
                 IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
 

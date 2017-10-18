@@ -10,6 +10,7 @@ public partial class MainWindow : Gtk.Window
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
+        Title = "Categoria";
 
         deleteAction.Sensitive = false;
 
@@ -42,6 +43,8 @@ public partial class MainWindow : Gtk.Window
             MessageDialog messageDialog = new MessageDialog(
                 this, DialogFlags.Modal, MessageType.Question,
                 ButtonsType.YesNo, "¿Quieres eliminar el registro?");
+
+            messageDialog.Title = Title;
 
             ResponseType response = (ResponseType)messageDialog.Run();
             if (response == ResponseType.Yes)
