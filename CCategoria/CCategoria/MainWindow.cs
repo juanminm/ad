@@ -24,11 +24,13 @@ public partial class MainWindow : Gtk.Window
         TreeViewHelper.Fill(treeView, "SELECT `id`, `nombre` FROM `categoria` "
                             + "ORDER BY `id`");
 
-        newAction.Activated += delegate {
+        newAction.Activated += delegate
+        {
             new CategoriaView();
         };
 
-        refreshAction.Activated += delegate {
+        refreshAction.Activated += delegate
+        {
             ((ListStore)treeView.Model).Clear();
 
             TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` ORDER BY "
@@ -39,7 +41,8 @@ public partial class MainWindow : Gtk.Window
             deleteAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
         };
 
-        deleteAction.Activated += delegate {
+        deleteAction.Activated += delegate
+        {
             if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
             {
                 IDbCommand dbCommand = App.Instance.Connection.CreateCommand();

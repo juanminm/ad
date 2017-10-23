@@ -14,7 +14,8 @@ namespace CCategoria
 
             Title = "Categoria";
 
-            saveAction.Activated += delegate {
+            saveAction.Activated += delegate
+            {
                 IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
 
                 dbCommand.CommandText = "INSERT INTO `categoria` (`nombre`) "
