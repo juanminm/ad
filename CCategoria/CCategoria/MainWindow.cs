@@ -17,10 +17,7 @@ public partial class MainWindow : Gtk.Window
                 + "database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
 
-        treeView.AppendColumn("id", new CellRendererText(), "text", 0);
-        treeView.AppendColumn("nombre", new CellRendererText(), "text", 1);
-        ListStore listStore = new ListStore(typeof(string), typeof(string));
-        treeView.Model = listStore;
+        TreeViewHelper.SetListStore(treeView, "id", "nombre", "contraseña");
 
         TreeViewHelper.Fill(treeView, "SELECT `id`, `nombre` FROM `categoria` "
                             + "ORDER BY `id`");
@@ -30,7 +27,7 @@ public partial class MainWindow : Gtk.Window
         };
 
         refreshAction.Activated += delegate {
-            listStore.Clear();
+            ((ListStore)treeView.Model).Clear();
 
             TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` ORDER BY "
                                 + "`id`");
@@ -55,7 +52,7 @@ public partial class MainWindow : Gtk.Window
                 dbCommand.CommandText = "DELETE FROM `categoria` (`nombre`) " +
                     "WHERE `id` = @id";
                 DbCommandHelper.AddParameter(dbCommand, "id",
-                                             listStore.GetValue(treeIter, 0));
+                                             treeView.Model.GetValue(treeIter, 0));
                 dbCommand.ExecuteNonQuery();
 
                 Destroy();

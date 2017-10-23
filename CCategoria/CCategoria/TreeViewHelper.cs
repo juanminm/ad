@@ -1,12 +1,30 @@
 ﻿using Gtk;
 using System;
 using System.Data;
+using GLib;
 
 namespace CCategoria
 {
     public class TreeViewHelper
     {
-        public static void Fill(TreeView treeView, string selectSql) {
+        public static void SetListStore(TreeView treeView,
+                                        params string[] rowNames)
+        {
+            GType[] types = new GType[rowNames.Length];
+
+            for (int i = 0; i < rowNames.Length; i++)
+            {
+                treeView.AppendColumn(rowNames[i], new CellRendererText(),
+                                      "text", i);
+                types[i] = (GType)typeof(string);
+            }
+            
+            ListStore listStore = new ListStore(types);
+            treeView.Model = listStore;
+        }
+
+        public static void Fill(TreeView treeView, string selectSql)
+        {
             IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
             IDataReader dataReader;
             dbCommand.CommandText = selectSql;
