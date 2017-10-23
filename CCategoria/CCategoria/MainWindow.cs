@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 
+using Serpis.Ad;
 using CCategoria;
 
 public partial class MainWindow : Gtk.Window
@@ -18,7 +19,7 @@ public partial class MainWindow : Gtk.Window
                 + "database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
 
-        TreeViewHelper.SetListStore(treeView, "id", "nombre", "contraseña");
+        TreeViewHelper.SetListStore(treeView, "id", "nombre");
 
         TreeViewHelper.Fill(treeView, "SELECT `id`, `nombre` FROM `categoria` "
                             + "ORDER BY `id`");
@@ -45,8 +46,7 @@ public partial class MainWindow : Gtk.Window
 
                 dbCommand.CommandText = "DELETE FROM `categoria` (`nombre`) " +
                     "WHERE `id` = @id";
-                DbCommandHelper.AddParameter(dbCommand, "id",
-                                             treeView.Model.GetValue(treeIter, GetId()));
+                DbCommandHelper.AddParameter(dbCommand, "id", GetId());
                 dbCommand.ExecuteNonQuery();
             }
         };

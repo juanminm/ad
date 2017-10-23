@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using GLib;
 
-namespace CCategoria
+namespace Serpis.Ad
 {
     public class TreeViewHelper
     {
