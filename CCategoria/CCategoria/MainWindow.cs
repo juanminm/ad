@@ -26,7 +26,7 @@ public partial class MainWindow : Gtk.Window
 
         newAction.Activated += delegate
         {
-            new CategoriaView();
+            new CategoriaWindow();
         };
 
         refreshAction.Activated += delegate
