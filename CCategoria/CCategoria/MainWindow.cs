@@ -70,21 +70,6 @@ public partial class MainWindow : Gtk.Window
         return treeView.Model.GetValue(treeIter, 0);
     }
 
-    private void FillListStore(ListStore listStore)
-    {
-        IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-        IDataReader dataReader;
-        dbCommand.CommandText = "SELECT * FROM `categoria` ORDER BY `id`";
-        dataReader = dbCommand.ExecuteReader();
-
-        while (dataReader.Read())
-        {
-            listStore.AppendValues(dataReader["id"].ToString(),
-                                   dataReader["nombre"].ToString());
-        }
-        dataReader.Close();
-    }
-
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
         App.Instance.Connection.Close();
