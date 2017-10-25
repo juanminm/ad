@@ -48,12 +48,8 @@ public partial class MainWindow : Gtk.Window
         {
             if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
             {
-                IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-
-                dbCommand.CommandText = "DELETE FROM `categoria` (`nombre`) " +
-                    "WHERE `id` = @id";
-                DbCommandHelper.AddParameter(dbCommand, "id", GetId());
-                dbCommand.ExecuteNonQuery();
+                Categoria categoria = CategoriaDao.Load(GetId());
+                CategoriaDao.Delete(categoria);
             }
         };
 
