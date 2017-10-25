@@ -28,7 +28,7 @@ namespace CCategoria
 
             saveAction.Activated += delegate
             {
-                update();
+                Update();
                 Destroy();
             };
 
@@ -43,12 +43,12 @@ namespace CCategoria
 
             saveAction.Activated += delegate
             {
-                insert();
+                Insert();
                 Destroy();
             };
         }
 
-        private void insert()
+        private void Insert()
         {
             IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
 
@@ -60,7 +60,7 @@ namespace CCategoria
             dbCommand.ExecuteNonQuery();
         }
 
-        private void update()
+        private void Update()
         {
             IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
             dbCommand.CommandText = "UPDATE `categoria` SET `nombre` = " +
