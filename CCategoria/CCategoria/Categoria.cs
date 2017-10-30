@@ -5,6 +5,7 @@ namespace CCategoria
     {
         public Categoria()
         {
+            nombre = "";
         }
 
         private long id;
