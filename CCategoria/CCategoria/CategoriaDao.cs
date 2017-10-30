@@ -26,27 +26,25 @@ namespace CCategoria
         }
 
         public static void Save(Categoria categoria) {
+            IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+
             if (categoria.Id == 0)
             {
-                IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-
                 dbCommand.CommandText = "INSERT INTO `categoria` (`nombre`) "
                     + "VALUES (@nombre)";
                 DbCommandHelper.AddParameter(dbCommand, "nombre",
                                              categoria.Nombre);
-
-                dbCommand.ExecuteNonQuery();
             }
             else
             {
-                IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
                 dbCommand.CommandText = "UPDATE `categoria` SET `nombre` = " +
                     "@nombre WHERE `id` = @id";
                 DbCommandHelper.AddParameter(dbCommand, "id", categoria.Id);
                 DbCommandHelper.AddParameter(dbCommand, "nombre",
                                              categoria.Nombre);
-                dbCommand.ExecuteNonQuery();
             }
+
+            dbCommand.ExecuteNonQuery();
         }
 
         public static void Delete(Categoria categoria) {
