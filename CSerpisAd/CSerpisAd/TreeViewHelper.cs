@@ -11,6 +11,7 @@ namespace Serpis.Ad
                                         params string[] rowNames)
         {
             GType[] types = new GType[rowNames.Length];
+            ListStore listStore;
 
             for (int i = 0; i < rowNames.Length; i++)
             {
@@ -19,7 +20,7 @@ namespace Serpis.Ad
                 types[i] = (GType)typeof(string);
             }
             
-            ListStore listStore = new ListStore(types);
+            listStore = new ListStore(types);
             treeView.Model = listStore;
         }
 
@@ -27,6 +28,7 @@ namespace Serpis.Ad
         {
             IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
             IDataReader dataReader;
+
             dbCommand.CommandText = selectSql;
             dataReader = dbCommand.ExecuteReader();
 

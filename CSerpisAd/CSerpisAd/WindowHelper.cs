@@ -14,10 +14,11 @@ namespace Serpis.Ad
                 ButtonsType.YesNo,
                 message
             );
+            ResponseType response;
 
             messageDialog.Title = parent.Title;
 
-            ResponseType response = (ResponseType)messageDialog.Run();
+            response = (ResponseType)messageDialog.Run();
             messageDialog.Destroy();
 
             return response == ResponseType.Yes;

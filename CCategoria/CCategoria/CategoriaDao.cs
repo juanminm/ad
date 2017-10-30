@@ -10,12 +10,13 @@ namespace CCategoria
         public static Categoria Load(object id)
         {
             Categoria categoria = new Categoria();
-
             IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+            IDataReader dataReader;
+
             dbCommand.CommandText = "SELECT * FROM `categoria` " +
                 "WHERE `id` = @id";
             DbCommandHelper.AddParameter(dbCommand, "id", id);
-            IDataReader dataReader = dbCommand.ExecuteReader();
+            dataReader = dbCommand.ExecuteReader();
             dataReader.Read(); //TODO tratamiento de excepciones
 
             categoria.Id = Convert.ToInt64(id);
