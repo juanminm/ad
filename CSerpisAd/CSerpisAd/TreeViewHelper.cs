@@ -1,7 +1,6 @@
 ﻿using Gtk;
 using System;
 using System.Data;
-using GLib;
 
 namespace Serpis.Ad
 {
@@ -18,14 +17,14 @@ namespace Serpis.Ad
 
             if (listStore == null)
             {
-                GType[] types = new GType[dataReader.FieldCount];
+                Type[] types = new Type[dataReader.FieldCount];
 
                 for (int i = 0; i < dataReader.FieldCount; i++)
                 {
                     treeView.AppendColumn(dataReader.GetName(i),
                                           new CellRendererText(),
                                           "text", i);
-                    types[i] = (GType)typeof(string);
+                    types[i] = typeof(string);
                 }
 
                 listStore = new ListStore(types);
