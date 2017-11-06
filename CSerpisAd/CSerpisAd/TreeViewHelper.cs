@@ -25,7 +25,8 @@ namespace Serpis.Ad
             treeView.Model = listStore;
         }
 
-        private static void FillListStore(ListStore listStore, IDataReader dataReader) {
+        private static void FillListStore(ListStore listStore,
+                                          IDataReader dataReader) {
             listStore.Clear();
             while (dataReader.Read())
             {
