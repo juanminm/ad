@@ -20,7 +20,7 @@ public partial class MainWindow : Gtk.Window
                 + "database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
 
-        TreeViewHelper.Fill(treeView, "SELECT `id`, `nombre` FROM `categoria` "
+        TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` "
                             + "ORDER BY `id`");
 
         newAction.Activated += delegate
