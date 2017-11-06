@@ -20,8 +20,6 @@ public partial class MainWindow : Gtk.Window
                 + "database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
 
-        TreeViewHelper.SetListStore(treeView, "id", "nombre");
-
         TreeViewHelper.Fill(treeView, "SELECT `id`, `nombre` FROM `categoria` "
                             + "ORDER BY `id`");
 
@@ -32,8 +30,6 @@ public partial class MainWindow : Gtk.Window
 
         refreshAction.Activated += delegate
         {
-            ((ListStore)treeView.Model).Clear();
-
             TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` ORDER BY "
                                 + "`id`");
         };
