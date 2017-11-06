@@ -6,35 +6,27 @@ namespace Serpis.Ad
 {
     public class TreeViewHelper
     {
-        public static void Fill(TreeView treeView, string selectSql)
+        private static void Init(TreeView treeView, IDataReader dataReader)
         {
-            IDataReader dataReader;
-            IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-            ListStore listStore = (ListStore)treeView.Model;
+            if (treeView.Model != null)
+                return;
 
-            dbCommand.CommandText = selectSql;
-            dataReader = dbCommand.ExecuteReader();
+            Type[] types = new Type[dataReader.FieldCount];
 
-            if (listStore == null)
+            for (int i = 0; i < dataReader.FieldCount; i++)
             {
-                Type[] types = new Type[dataReader.FieldCount];
-
-                for (int i = 0; i < dataReader.FieldCount; i++)
-                {
-                    treeView.AppendColumn(dataReader.GetName(i),
-                                          new CellRendererText(),
-                                          "text", i);
-                    types[i] = typeof(string);
-                }
-
-                listStore = new ListStore(types);
-                treeView.Model = listStore;
-            }
-            else
-            {
-                listStore.Clear();
+                treeView.AppendColumn(dataReader.GetName(i),
+                                      new CellRendererText(),
+                                      "text", i);
+                types[i] = typeof(string);
             }
 
+            ListStore listStore = new ListStore(types);
+            treeView.Model = listStore;
+        }
+
+        private static void FillListStore(ListStore listStore, IDataReader dataReader) {
+            listStore.Clear();
             while (dataReader.Read())
             {
                 object[] row = new object[dataReader.FieldCount];
@@ -44,7 +36,19 @@ namespace Serpis.Ad
 
                 listStore.AppendValues(row);
             }
+        }
 
+        public static void Fill(TreeView treeView, string selectSql)
+        {
+            IDataReader dataReader;
+            IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+            ListStore listStore;
+
+            dbCommand.CommandText = selectSql;
+            dataReader = dbCommand.ExecuteReader();
+            Init(treeView, dataReader);
+            listStore = (ListStore)treeView.Model;
+            FillListStore(listStore, dataReader);
             dataReader.Close();
         }
     }
