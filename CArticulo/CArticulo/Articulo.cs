@@ -12,6 +12,7 @@ namespace CArticulo
         private long id;
         private string nombre;
         private long categoriaId;
+        private decimal precio;
 
         public long Id
         {
@@ -29,6 +30,12 @@ namespace CArticulo
         {
             get { return categoriaId; }
             set { categoriaId = value; }
+        }
+
+        public decimal Precio
+        {
+            get { return precio; }
+            set { precio = value; }
         }
     }
 }
