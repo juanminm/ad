@@ -21,7 +21,7 @@ public partial class MainWindow : Gtk.Window
         App.Instance.Connection.Open();
 
         TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` "
-                            + "ORDER BY `id`");
+                + "ORDER BY `id`");
 
         newAction.Activated += delegate
         {
@@ -31,10 +31,11 @@ public partial class MainWindow : Gtk.Window
         refreshAction.Activated += delegate
         {
             TreeViewHelper.Fill(treeView, "SELECT * FROM `categoria` ORDER BY "
-                                + "`id`");
+                    + "`id`");
         };
 
-        treeView.Selection.Changed += delegate {
+        treeView.Selection.Changed += delegate
+        {
             bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
             deleteAction.Sensitive = hasSelected;
             editAction.Sensitive = hasSelected;

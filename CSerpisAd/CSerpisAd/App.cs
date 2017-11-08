@@ -14,27 +14,26 @@ namespace Serpis.Ad
 
         public static App instance = new App();
 
-		//public static App GetInstance() {
-		//    return instance
-		//}
-		public static App Instance
+        //public static App GetInstance() {
+        //    return instance
+        //}
+        public static App Instance
         {
             get { return instance; }
         }
 
-		//public IDbConnection GetConnection ()
-		//{
-		//    return conection;
-		//}
+        //public IDbConnection GetConnection ()
+        //{
+        //    return conection;
+        //}
 
-		//public void Setconnection (IDbConnection connection) {
-		//    this.connection = connection;
-		//}
-		public IDbConnection Connection
+        //public void Setconnection (IDbConnection connection) {
+        //    this.connection = connection;
+        //}
+        public IDbConnection Connection
         {
             get { return connection; }
             set { connection = value; }
         }
-
     }
 }
