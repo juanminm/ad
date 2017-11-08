@@ -52,5 +52,10 @@ namespace Serpis.Ad
             FillListStore(listStore, dataReader);
             dataReader.Close();
         }
+
+        public static object GetId(TreeView treeView) {
+            treeView.Selection.GetSelected(out TreeIter treeIter);
+            return treeView.Model.GetValue(treeIter, 0);
+        }
     }
 }

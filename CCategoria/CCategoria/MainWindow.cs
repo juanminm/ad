@@ -44,21 +44,17 @@ public partial class MainWindow : Gtk.Window
         {
             if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
             {
-                Categoria categoria = CategoriaDao.Load(GetId());
+                Categoria categoria = CategoriaDao.Load(
+                    TreeViewHelper.GetId(treeView));
                 CategoriaDao.Delete(categoria);
             }
         };
 
         editAction.Activated += delegate
         {
-			new CategoriaWindow(CategoriaDao.Load(GetId()));
+            new CategoriaWindow(CategoriaDao.Load(
+                TreeViewHelper.GetId(treeView)));
         };
-    }
-
-    private object GetId()
-    {
-        treeView.Selection.GetSelected(out TreeIter treeIter);
-        return treeView.Model.GetValue(treeIter, 0);
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
