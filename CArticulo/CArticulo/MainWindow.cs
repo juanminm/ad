@@ -15,6 +15,8 @@ public partial class MainWindow : Gtk.Window
             "server=localhost;database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
 
+        TreeViewHelper.Fill(treeView, "SELECT * FROM `articulo` ORDER BY `id`;");
+
         newAction.Activated += delegate {
             new ArticuloWindow(new Articulo());
         };
