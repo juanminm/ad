@@ -19,8 +19,7 @@ namespace CArticulo
 
             entryNombre.Text = articulo.Nombre;
 
-            comboCategoria.AddAttribute(new CellRendererText(), "text", 0);
-            comboCategoria.Model = listStore;
+            ComboBoxHelper.Init(comboCategoria);
 
             dbCommand.CommandText = "SELECT `id` FROM `categoria` ORDER BY 1;";
             dataReader = dbCommand.ExecuteReader();
