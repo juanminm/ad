@@ -69,6 +69,7 @@
     <Compile Include="Articulo.cs" />
     <Compile Include="ArticuloWindow.cs" />
     <Compile Include="gtk-gui\CArticulo.ArticuloWindow.cs" />
+    <Compile Include="ArticuloDao.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
