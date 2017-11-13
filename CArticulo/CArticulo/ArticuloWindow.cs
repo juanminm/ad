@@ -35,8 +35,26 @@ namespace CArticulo
                 listStore.AppendValues(row);
             }
 
+            dataReader.Close();
+            dbCommand.Parameters.Clear();
 
             spinPrecio.Value = (double)articulo.Precio;
+
+            saveAction.Activated += delegate
+            {
+                articulo.Nombre = entryNombre.Text;
+                articulo.CategoriaId = Convert.ToInt64(comboCategoria.ActiveText);
+                articulo.Precio = (decimal)spinPrecio.Value;
+
+                dbCommand.CommandText = "INSERT INTO `articulo` (`nombre`, " +
+                    "`categoria`, `precio`) VALUES (@nombre, @categoria, " +
+                    "@precio);";
+                DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
+                DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.CategoriaId);
+                DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
+                dbCommand.ExecuteNonQuery();
+                Destroy();
+            };
         }
     }
 }
