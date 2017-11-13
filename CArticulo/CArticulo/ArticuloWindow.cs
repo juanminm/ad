@@ -13,34 +13,19 @@ namespace CArticulo
         {
             this.Build();
 
-            IDataReader dataReader;
-            IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
             ListStore listStore = new ListStore(typeof(string)); 
 
             entryNombre.Text = articulo.Nombre;
 
-            ComboBoxHelper.Init(comboCategoria);
-
-            dbCommand.CommandText = "SELECT `id` FROM `categoria` ORDER BY 1;";
-            dataReader = dbCommand.ExecuteReader();
-
-            while (dataReader.Read())
-            {
-                object[] row = new object[dataReader.FieldCount];
-
-                for (int i = 0; i < row.Length; i++)
-                    row[i] = dataReader.GetValue(i).ToString();
-
-                listStore.AppendValues(row);
-            }
-
-            dataReader.Close();
-            dbCommand.Parameters.Clear();
+            ComboBoxHelper.Fill(comboCategoria, "SELECT `id` FROM `categoria`" +
+                                "ORDER BY 1;");
 
             spinPrecio.Value = (double)articulo.Precio;
 
             saveAction.Activated += delegate
             {
+                IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+
                 articulo.Nombre = entryNombre.Text;
                 articulo.CategoriaId = Convert.ToInt64(comboCategoria.ActiveText);
                 articulo.Precio = (decimal)spinPrecio.Value;
@@ -52,6 +37,7 @@ namespace CArticulo
                 DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.CategoriaId);
                 DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
                 dbCommand.ExecuteNonQuery();
+
                 Destroy();
             };
         }
