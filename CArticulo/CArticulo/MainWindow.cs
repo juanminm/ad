@@ -17,8 +17,15 @@ public partial class MainWindow : Gtk.Window
 
         TreeViewHelper.Fill(treeView, "SELECT * FROM `articulo` ORDER BY `id`;");
 
-        newAction.Activated += delegate {
+        newAction.Activated += delegate
+        {
             new ArticuloWindow(new Articulo());
+        };
+
+        refreshAction.Activated += delegate
+        {
+            TreeViewHelper.Fill(treeView, "SELECT * FROM `articulo` " +
+                                "ORDER BY `id`;");
         };
     }
 
