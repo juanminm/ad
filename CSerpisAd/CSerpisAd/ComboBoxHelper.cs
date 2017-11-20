@@ -46,5 +46,15 @@ namespace Serpis.Ad
 
             dataReader.Close();
         }
+
+
+        public static void Fill(ComboBox comboBox, string selectSql,
+                                bool withNull)
+        {
+            Fill(comboBox, selectSql);
+
+            if (withNull)
+                ((ListStore)comboBox.Model).Insert(0);
+        }
     }
 }
