@@ -17,8 +17,8 @@ namespace CArticulo
 
             entryNombre.Text = articulo.Nombre;
 
-            ComboBoxHelper.Fill(comboCategoria, "SELECT `id` FROM `categoria`" +
-                                "ORDER BY 1;", true);
+            ComboBoxHelper.Fill(comboCategoria, "SELECT * FROM `categoria`" +
+                                "ORDER BY 1;", 0, true);
 
             spinPrecio.Value = (double)articulo.Precio;
 
