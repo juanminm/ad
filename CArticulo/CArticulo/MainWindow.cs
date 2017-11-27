@@ -34,6 +34,16 @@ public partial class MainWindow : Gtk.Window
             Articulo articulo = ArticuloDao.Load(id);
             new ArticuloWindow(articulo);
         };
+
+        deleteAction.Activated += delegate
+        {
+            if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
+            {
+                Articulo articulo = ArticuloDao.Load(
+                    TreeViewHelper.GetId(treeView));
+                ArticuloDao.Delete(articulo);
+            }
+        };
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)

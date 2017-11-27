@@ -71,5 +71,14 @@ namespace CArticulo
 
             dbCommand.ExecuteNonQuery();
         }
+
+        public static void Delete(Articulo articulo)
+        {
+            IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+
+            dbCommand.CommandText = "DELETE FROM `categoria` WHERE `id` = @id";
+            DbCommandHelper.AddParameter(dbCommand, "id", articulo.Id);
+            dbCommand.ExecuteNonQuery();
+        }
     }
 }
