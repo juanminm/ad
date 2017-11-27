@@ -27,6 +27,13 @@ public partial class MainWindow : Gtk.Window
             TreeViewHelper.Fill(treeView, "SELECT * FROM `articulo` " +
                                 "ORDER BY `id`;");
         };
+
+        editAction.Activated += delegate
+        {
+            object id = TreeViewHelper.GetId(treeView);
+            Articulo articulo = ArticuloDao.Load(id);
+            new ArticuloWindow(articulo);
+        };
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
