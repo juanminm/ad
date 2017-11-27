@@ -11,6 +11,9 @@ public partial class MainWindow : Gtk.Window
     {
         Build();
 
+        deleteAction.Sensitive = false;
+        editAction.Sensitive = false;
+
         App.Instance.Connection = new MySqlConnection(
             "server=localhost;database=dbprueba;user=root;password=sistemas");
         App.Instance.Connection.Open();
@@ -26,6 +29,13 @@ public partial class MainWindow : Gtk.Window
         {
             TreeViewHelper.Fill(treeView, "SELECT * FROM `articulo` " +
                                 "ORDER BY `id`;");
+        };
+
+        treeView.Selection.Changed += delegate
+        {
+            bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
+            deleteAction.Sensitive = hasSelected;
+            editAction.Sensitive = hasSelected;
         };
 
         editAction.Activated += delegate
