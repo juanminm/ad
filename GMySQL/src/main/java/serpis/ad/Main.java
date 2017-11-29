@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class Main {
 
+	private static Scanner scan = new Scanner(System.in);
+
 	public static void main(String[] args) throws SQLException {
 		Connection connection = DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/dbprueba?useSSL=false", "root",
@@ -17,7 +19,6 @@ public class Main {
 		boolean isExit = false;
 
 		while (!isExit) {
-			Scanner scan = new Scanner(System.in);
 			int option;
 
 			System.out.println("0. Salir");
@@ -50,34 +51,7 @@ public class Main {
 					// TODO Consultar
 					break;
 				case 5:
-					System.out.println("Mostrando la tabla Articulo...");
-					System.out.println();
-					try (Statement stmt = connection.createStatement()) {
-						ResultSet rs = stmt.executeQuery("SELECT * FROM "
-								+ "`articulo`");
-
-						String header = String.format(
-								"%-8s | %-30s | %-10s | %s", "Nombre",
-								"Artículo", "Precio", "Categoria");
-
-						System.out.println(header);
-						for (int i = 0; i < header.length(); i++)
-							System.out.print("-");
-						System.out.println();
-
-						while (rs.next()) {
-							long id = rs.getLong("id");
-							String name = rs.getString("nombre");
-							BigDecimal precio = rs.getBigDecimal("precio");
-							long categoria = rs.getLong("categoria");
-
-							System.out.printf("%-8d | %-30s | %10.2f | %s%n",
-									id, name, precio, categoria);
-						}
-					}
-					System.out.println();
-					System.out.println("Pulse ENTER para continuar");
-					scan.nextLine();
+					list(connection);
 					break;
 				default:
 					break;
@@ -85,6 +59,40 @@ public class Main {
 		}
 
 		connection.close();
+	}
+
+	private static void list(Connection connection) {
+		System.out.println("Mostrando la tabla Articulo...");
+		System.out.println();
+
+		try (Statement stmt = connection.createStatement()) {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM `articulo`");
+
+			String header = String.format(
+					"%-8s | %-30s | %-10s | %s", "Nombre", "Artículo", "Precio",
+					"Categoria");
+
+			System.out.println(header);
+			for (int i = 0; i < header.length(); i++)
+				System.out.print("-");
+			System.out.println();
+
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				String name = rs.getString("nombre");
+				BigDecimal precio = rs.getBigDecimal("precio");
+				long categoria = rs.getLong("categoria");
+
+				System.out.printf("%-8d | %-30s | %10.2f | %s%n", id, name,
+						precio, categoria);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println();
+		System.out.println("Pulse ENTER para continuar");
+		scan.nextLine();
 	}
 
 }
