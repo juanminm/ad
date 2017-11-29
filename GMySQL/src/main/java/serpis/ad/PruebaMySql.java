@@ -82,8 +82,6 @@ public class PruebaMySql {
 				default:
 					break;
 			}
-			
-			scan.close();
 		}
 
 		connection.close();
