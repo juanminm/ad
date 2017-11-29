@@ -12,11 +12,11 @@ public class PruebaMySql {
 
 	public static void main(String[] args) throws SQLException {
 		Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost/dbprueba?useSSL=false", "root",
+				"jdbc:mysql://localhost:3306/dbprueba?useSSL=false", "root",
 				"sistemas");
 		boolean isExit = false;
-		
-		while(!isExit) {
+
+		while (!isExit) {
 			Scanner scan = new Scanner(System.in);
 			int option;
 
@@ -28,26 +28,26 @@ public class PruebaMySql {
 			System.out.println("5. Listar");
 			System.out.println();
 			System.out.print("Escoge una opción: ");
-			
+
 			option = scan.nextInt();
 			scan.nextLine();
 			System.out.println();
 
 			switch (option) {
 				case 0:
-					isExit = true; 
+					isExit = true;
 					break;
 				case 1:
-					//TODO Nuevo
+					// TODO Nuevo
 					break;
 				case 2:
-					//TODO Modificar
+					// TODO Modificar
 					break;
 				case 3:
-					//TODO Eliminar
+					// TODO Eliminar
 					break;
 				case 4:
-					//TODO Consultar
+					// TODO Consultar
 					break;
 				case 5:
 					System.out.println("Mostrando la tabla Articulo...");
@@ -85,7 +85,7 @@ public class PruebaMySql {
 			
 			scan.close();
 		}
-		
+
 		connection.close();
 	}
 
