@@ -1,8 +1,11 @@
 package serpis.ad;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class PruebaMySql {
@@ -28,7 +31,8 @@ public class PruebaMySql {
 			
 			option = scan.nextInt();
 			scan.nextLine();
-			
+			System.out.println();
+
 			switch (option) {
 				case 0:
 					isExit = true; 
@@ -46,7 +50,34 @@ public class PruebaMySql {
 					//TODO Consultar
 					break;
 				case 5:
-					//TODO Listar
+					System.out.println("Mostrando la tabla Articulo...");
+					System.out.println();
+					try (Statement stmt = connection.createStatement()) {
+						ResultSet rs = stmt.executeQuery("SELECT * FROM "
+								+ "`articulo`");
+
+						String header = String.format(
+								"%-8s | %-30s | %-10s | %s", "Nombre",
+								"Artículo", "Precio", "Categoria");
+
+						System.out.println(header);
+						for (int i = 0; i < header.length(); i++)
+							System.out.print("-");
+						System.out.println();
+
+						while (rs.next()) {
+							long id = rs.getLong("id");
+							String name = rs.getString("nombre");
+							BigDecimal precio = rs.getBigDecimal("precio");
+							long categoria = rs.getLong("categoria");
+
+							System.out.printf("%-8d | %-30s | %10.2f | %s%n",
+									id, name, precio, categoria);
+						}
+					}
+					System.out.println();
+					System.out.println("Pulse ENTER para continuar");
+					scan.nextLine();
 					break;
 				default:
 					break;
