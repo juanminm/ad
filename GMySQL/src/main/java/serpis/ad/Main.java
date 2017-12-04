@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -18,45 +19,48 @@ public class Main {
 				"sistemas");
 		boolean isExit = false;
 
-		while (!isExit) {
-			int option;
+		while (!isExit)
+			try {
+				int option;
 
-			System.out.println("0. Salir");
-			System.out.println("1. Nuevo");
-			System.out.println("2. Modificar");
-			System.out.println("3. Eliminar");
-			System.out.println("4. Consultar");
-			System.out.println("5. Listar");
-			System.out.println();
-			System.out.print("Escoge una opción: ");
+				System.out.println("0. Salir");
+				System.out.println("1. Nuevo");
+				System.out.println("2. Modificar");
+				System.out.println("3. Eliminar");
+				System.out.println("4. Consultar");
+				System.out.println("5. Listar");
+				System.out.println();
+				System.out.print("Escoge una opción: ");
+				option = scan.nextInt();
+				scan.nextLine();
+				System.out.println();
 
-			option = scan.nextInt();
-			scan.nextLine();
-			System.out.println();
-
-			switch (option) {
-				case 0:
-					isExit = true;
-					break;
-				case 1:
-					// TODO Nuevo
-					break;
-				case 2:
-					// TODO Modificar
-					break;
-				case 3:
-					// TODO Eliminar
-					break;
-				case 4:
-					// TODO Consultar
-					break;
-				case 5:
-					list(connection);
-					break;
-				default:
-					break;
+				switch (option) {
+					case 0:
+						isExit = true;
+						break;
+					case 1:
+						// TODO Nuevo
+						break;
+					case 2:
+						// TODO Modificar
+						break;
+					case 3:
+						// TODO Eliminar
+						break;
+					case 4:
+						// TODO Consultar
+						break;
+					case 5:
+						list(connection);
+						break;
+					default:
+						System.out.println("Opción invalida.");
+						break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Debe de ser un número entero.");
 			}
-		}
 
 		connection.close();
 	}
