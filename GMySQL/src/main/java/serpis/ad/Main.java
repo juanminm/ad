@@ -6,10 +6,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+
+	public enum Option {Salir, Nuevo, Modificar, Eliminar, Consultar, Listar};
 
 	private static Scanner scan = new Scanner(System.in);
 
@@ -19,10 +20,45 @@ public class Main {
 				"sistemas");
 		boolean isExit = false;
 
-		while (!isExit)
-			isExit = showMenu(isExit, connection);
+		while(!isExit) {
+			Option option = showMenu(Option.class);
 
+			Runnable runnable = null;
+			if (option == Option.Salir) {
+				isExit = true;
+			} else if (option == Option.Nuevo) {
+				runnable = () -> newProduct();
+			} else if (option == Option.Modificar) {
+				runnable = () -> modifyProduct();
+			} else if (option == Option.Eliminar) {
+				runnable = () -> deleteProduct();
+			} else if (option == Option.Consultar) {
+				runnable = () -> queryProduct();
+			} else {
+				runnable = () -> list(connection);
+			}
+
+			if (!isExit)
+				runnable.run();
+		}
 		connection.close();
+
+	}
+
+	private static void newProduct() {
+		//TODO To implement
+	}
+
+	private static void modifyProduct() {
+		//TODO To implement
+	}
+
+	private static void deleteProduct() {
+		//TODO To implement
+	}
+
+	private static void queryProduct() {
+		//TODO To implement
 	}
 
 	private static void list(Connection connection) {
@@ -59,51 +95,18 @@ public class Main {
 		scan.nextLine();
 	}
 
-	private static boolean showMenu(boolean isExit, Connection connection) {
-		try {
-			int option;
+	private static <T extends Enum<T>> T showMenu(Class<T> enumType) {
+		T[] constants = enumType.getEnumConstants();
+		for (int i = 0; i < constants.length; i++)
+			System.out.printf("%s - %s%n", i, constants[i]);
+		String options = String.format("^[0-%s]$", constants.length - 1);
 
-			System.out.println("0. Salir");
-			System.out.println("1. Nuevo");
-			System.out.println("2. Modificar");
-			System.out.println("3. Eliminar");
-			System.out.println("4. Consultar");
-			System.out.println("5. Listar");
-			System.out.println();
+		while (true) {
 			System.out.print("Escoge una opción: ");
-			option = scan.nextInt();
-			scan.nextLine();
-			System.out.println();
-
-			switch (option) {
-				case 0:
-					isExit = true;
-					break;
-				case 1:
-					// TODO Nuevo
-					break;
-				case 2:
-					// TODO Modificar
-					break;
-				case 3:
-					// TODO Eliminar
-					break;
-				case 4:
-					// TODO Consultar
-					break;
-				case 5:
-					list(connection);
-					break;
-				default:
-					System.out.println("Opción invalida.");
-					break;
-			}
-
-			return isExit;
-		} catch (InputMismatchException e) {
-			System.out.println("Debe de ser un número entero.");
-			return isExit;
+			String line = scan.nextLine();
+			if (line.matches(options))
+				return constants[Integer.parseInt(line)];
+			System.out.println("Opción invalida.");
 		}
 	}
-
 }
