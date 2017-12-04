@@ -20,47 +20,7 @@ public class Main {
 		boolean isExit = false;
 
 		while (!isExit)
-			try {
-				int option;
-
-				System.out.println("0. Salir");
-				System.out.println("1. Nuevo");
-				System.out.println("2. Modificar");
-				System.out.println("3. Eliminar");
-				System.out.println("4. Consultar");
-				System.out.println("5. Listar");
-				System.out.println();
-				System.out.print("Escoge una opción: ");
-				option = scan.nextInt();
-				scan.nextLine();
-				System.out.println();
-
-				switch (option) {
-					case 0:
-						isExit = true;
-						break;
-					case 1:
-						// TODO Nuevo
-						break;
-					case 2:
-						// TODO Modificar
-						break;
-					case 3:
-						// TODO Eliminar
-						break;
-					case 4:
-						// TODO Consultar
-						break;
-					case 5:
-						list(connection);
-						break;
-					default:
-						System.out.println("Opción invalida.");
-						break;
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Debe de ser un número entero.");
-			}
+			isExit = showMenu(isExit, connection);
 
 		connection.close();
 	}
@@ -97,6 +57,53 @@ public class Main {
 		System.out.println();
 		System.out.println("Pulse ENTER para continuar");
 		scan.nextLine();
+	}
+
+	private static boolean showMenu(boolean isExit, Connection connection) {
+		try {
+			int option;
+
+			System.out.println("0. Salir");
+			System.out.println("1. Nuevo");
+			System.out.println("2. Modificar");
+			System.out.println("3. Eliminar");
+			System.out.println("4. Consultar");
+			System.out.println("5. Listar");
+			System.out.println();
+			System.out.print("Escoge una opción: ");
+			option = scan.nextInt();
+			scan.nextLine();
+			System.out.println();
+
+			switch (option) {
+				case 0:
+					isExit = true;
+					break;
+				case 1:
+					// TODO Nuevo
+					break;
+				case 2:
+					// TODO Modificar
+					break;
+				case 3:
+					// TODO Eliminar
+					break;
+				case 4:
+					// TODO Consultar
+					break;
+				case 5:
+					list(connection);
+					break;
+				default:
+					System.out.println("Opción invalida.");
+					break;
+			}
+
+			return isExit;
+		} catch (InputMismatchException e) {
+			System.out.println("Debe de ser un número entero.");
+			return isExit;
+		}
 	}
 
 }
