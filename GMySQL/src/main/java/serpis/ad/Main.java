@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	public enum Option {Salir, Nuevo, Modificar, Eliminar, Consultar, Listar};
+	public enum Option {EXIT, INSERT, UPDATE, DELETE, QUERY, LIST};
 
 	private static Scanner scan = new Scanner(System.in);
 
@@ -23,15 +23,15 @@ public class Main {
 			Option option = showMenu(Option.class);
 
 			Runnable runnable = null;
-			if (option == Option.Salir) {
+			if (option == Option.EXIT) {
 				isExit = true;
-			} else if (option == Option.Nuevo) {
+			} else if (option == Option.INSERT) {
 				runnable = () -> newProduct();
-			} else if (option == Option.Modificar) {
+			} else if (option == Option.UPDATE) {
 				runnable = () -> modifyProduct();
-			} else if (option == Option.Eliminar) {
+			} else if (option == Option.DELETE) {
 				runnable = () -> deleteProduct();
-			} else if (option == Option.Consultar) {
+			} else if (option == Option.QUERY) {
 				runnable = () -> queryProduct();
 			} else {
 				runnable = () -> list(connection);
