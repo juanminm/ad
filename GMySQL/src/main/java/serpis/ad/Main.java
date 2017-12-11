@@ -1,6 +1,5 @@
 package serpis.ad;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -67,6 +66,7 @@ public class Main {
 
 		try (Statement stmt = connection.createStatement()) {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM `articulo`");
+			Articulo articulo = new Articulo();
 
 			String header = String.format(
 					"%-8s | %-30s | %-10s | %s", "Nombre", "Artículo", "Precio",
@@ -78,13 +78,14 @@ public class Main {
 			System.out.println();
 
 			while (rs.next()) {
-				long id = rs.getLong("id");
-				String name = rs.getString("nombre");
-				BigDecimal precio = rs.getBigDecimal("precio");
-				long categoria = rs.getLong("categoria");
+				articulo.setId(rs.getLong("id"));
+				articulo.setNombre(rs.getString("nombre"));
+				articulo.setPrecio(rs.getBigDecimal("precio"));
+				articulo.setCategoria(rs.getLong("categoria"));
 
-				System.out.printf("%-8d | %-30s | %10.2f | %s%n", id, name,
-						precio, categoria);
+				System.out.printf("%-8d | %-30s | %10.2f | %s%n",
+						articulo.getId(), articulo.getNombre(),
+						articulo.getPrecio(), articulo.getCategoria());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
