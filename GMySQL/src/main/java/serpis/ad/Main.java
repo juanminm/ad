@@ -34,7 +34,7 @@ public class Main {
 			} else if (option == Option.QUERY) {
 				runnable = () -> queryProduct();
 			} else {
-				runnable = () -> list(connection);
+				runnable = () -> listProducts(connection);
 			}
 
 			if (!isExit)
@@ -60,7 +60,7 @@ public class Main {
 		//TODO To implement
 	}
 
-	private static void list(Connection connection) {
+	private static void listProducts(Connection connection) {
 		System.out.println("Mostrando la tabla Articulo...");
 		System.out.println();
 
