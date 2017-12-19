@@ -1,10 +1,7 @@
 package serpis.ad;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 public class Main {
@@ -14,9 +11,9 @@ public class Main {
 	private static Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) throws SQLException {
-		Connection connection = DriverManager.getConnection(
+		App.setConnection(DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/dbprueba?useSSL=false", "root",
-				"sistemas");
+				"sistemas"));
 		boolean isExit = false;
 
 		while(!isExit) {
@@ -40,7 +37,8 @@ public class Main {
 			if (!isExit)
 				runnable.run();
 		}
-		connection.close();
+
+		App.closeConnection();
 
 	}
 
