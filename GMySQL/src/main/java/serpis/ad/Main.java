@@ -31,7 +31,14 @@ public class Main {
 			} else if (option == Option.QUERY) {
 				runnable = () -> queryProduct();
 			} else {
-				runnable = () -> listProducts(connection);
+				runnable = () -> {
+					try {
+						listProducts();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				};
 			}
 
 			if (!isExit)
@@ -58,36 +65,10 @@ public class Main {
 		//TODO To implement
 	}
 
-	private static void listProducts(Connection connection) {
+	private static void listProducts() throws SQLException {
 		System.out.println("Mostrando la tabla Articulo...");
-		System.out.println();
+		QueryTableHelper.showQueryTable("SELECT * FROM `articulo`");
 
-		try (Statement stmt = connection.createStatement()) {
-			ResultSet rs = stmt.executeQuery("SELECT * FROM `articulo`");
-			Articulo articulo = new Articulo();
-
-			String header = String.format(
-					"%-8s | %-30s | %-10s | %s", "Nombre", "Artículo", "Precio",
-					"Categoria");
-
-			System.out.println(header);
-			for (int i = 0; i < header.length(); i++)
-				System.out.print("-");
-			System.out.println();
-
-			while (rs.next()) {
-				articulo.setId(rs.getLong("id"));
-				articulo.setNombre(rs.getString("nombre"));
-				articulo.setPrecio(rs.getBigDecimal("precio"));
-				articulo.setCategoria(rs.getLong("categoria"));
-
-				System.out.printf("%-8d | %-30s | %10.2f | %s%n",
-						articulo.getId(), articulo.getNombre(),
-						articulo.getPrecio(), articulo.getCategoria());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
 		System.out.println();
 		System.out.println("Pulse ENTER para continuar");
