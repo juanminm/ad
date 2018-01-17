@@ -52,4 +52,10 @@ public class Articulo {
 	public Categoria getCategoria() {
 		return categoria;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("[%s] %s %s (%s)", id, nombre, precio,
+				categoria);
+	}
 }

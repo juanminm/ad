@@ -53,6 +53,9 @@ public class Pedido {
 		return importe;
 	}
 
-
+	@Override
+	public String toString() {
+		return String.format("[%s] %s %s ($s)", id, cliente, fecha, importe);
+	}
 
 }

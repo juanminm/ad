@@ -44,4 +44,10 @@ public class PedidoLinea {
 		this.unidades = unidades;
 		this.importe = importe;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("[%s] (%s) (%s) %s %s %s", id, pedido, articulo,
+				precio, unidades, importe);
+	}
 }
