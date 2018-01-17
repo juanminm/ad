@@ -35,6 +35,10 @@ public class Cliente {
 		return nombre;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[%s] %s", id, nombre);

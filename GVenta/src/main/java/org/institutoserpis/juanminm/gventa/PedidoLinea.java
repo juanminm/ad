@@ -45,6 +45,30 @@ public class PedidoLinea {
 		this.importe = importe;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public BigDecimal getPrecio() {
+		return precio;
+	}
+
+	public BigDecimal getUnidades() {
+		return unidades;
+	}
+
+	public BigDecimal getImporte() {
+		return importe;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[%s] (%s) (%s) %s %s %s", id, pedido, articulo,
