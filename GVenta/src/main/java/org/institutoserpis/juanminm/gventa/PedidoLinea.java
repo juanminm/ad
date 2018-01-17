@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-@Entity(name="pedidolinea")
+@Entity(name = "pedidolinea")
 public class PedidoLinea {
 	@Id
 	@GeneratedValue

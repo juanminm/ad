@@ -10,8 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-//@Entity(name = "articulo")
-@Entity
+@Entity(name = "articulo")
 public class Articulo {
 	@Id
 	@GeneratedValue
@@ -25,7 +24,7 @@ public class Articulo {
 
 	@ManyToOne
 	@JoinColumn(name = "categoria",
-	foreignKey = @ForeignKey(name = "articulo_ibfk_1")
+	foreignKey = @ForeignKey(name = "pedido_ibfk_1")
 	)
 	private Categoria categoria;
 

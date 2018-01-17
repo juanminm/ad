@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "pedido")
@@ -15,6 +17,9 @@ public class Pedido {
 	private long id;
 
 	@ManyToOne
+	@JoinColumn(name = "cliente",
+	foreignKey = @ForeignKey(name = "pedido_ibfk_1")
+	)
 	private Cliente cliente;
 
 	@Column(name = "`fecha`")
