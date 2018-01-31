@@ -11,22 +11,27 @@ public class VentaMain {
 	private static EntityManagerFactory entityManagerFactory;
 
 	public static void main(String[] args) {
-		entityManagerFactory =
-				Persistence.createEntityManagerFactory(
-						"org.institutoserpis.juanminm.gventa");
-		showAll();
+		entityManagerFactory = Persistence.createEntityManagerFactory(
+				"org.institutoserpis.juanminm.gventa"
+		);
+		showAll(Articulo.class);
 		entityManagerFactory.close();
 	}
 
-	private static void showAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+	private static <T> void showAll(String sqlString, Class<T> itemClass) {
+		EntityManager entityManager = entityManagerFactory
+				.createEntityManager();
 		entityManager.getTransaction().begin();
-		List<Categoria> categorias = entityManager
-				.createQuery("from Categoria order by id", Categoria.class)
+		List<T> items = entityManager.createQuery(sqlString, itemClass)
 				.getResultList();
-		for (Categoria categoria : categorias)
-			System.out.println(categoria);
+		for (Object item : items)
+			System.out.println(item);
 		entityManager.getTransaction().commit();
+	}
+
+	private static <T> void showAll(Class<T> itemClass) {
+		String table = itemClass.getSimpleName().toLowerCase();
+		showAll(String.format("from %s order by id", table), itemClass);
 	}
 
 }
