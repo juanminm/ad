@@ -88,6 +88,11 @@ public class Pedido {
 		pedidoLinea.setPedido(this);
 	}
 
+	public void remove(PedidoLinea pedidoLinea) {
+		pedidoLineas.remove(pedidoLinea);
+		pedidoLinea.setPedido(null);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[%s] %s %s ($s)",
