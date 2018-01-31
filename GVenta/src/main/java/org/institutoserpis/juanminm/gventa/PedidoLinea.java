@@ -49,24 +49,48 @@ public class PedidoLinea {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Pedido getPedido() {
 		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	public Articulo getArticulo() {
 		return articulo;
 	}
 
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+
 	public BigDecimal getPrecio() {
 		return precio;
+	}
+
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
 	}
 
 	public BigDecimal getUnidades() {
 		return unidades;
 	}
 
+	public void setUnidades(BigDecimal unidades) {
+		this.unidades = unidades;
+	}
+
 	public BigDecimal getImporte() {
 		return importe;
+	}
+
+	public void setImporte(BigDecimal importe) {
+		this.importe = importe;
 	}
 
 	@Override
