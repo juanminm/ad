@@ -85,6 +85,7 @@ public class Pedido {
 
 	public void add(PedidoLinea pedidoLinea) {
 		pedidoLineas.add(pedidoLinea);
+		pedidoLinea.setPedido(this);
 	}
 
 	@Override
