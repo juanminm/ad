@@ -1,5 +1,6 @@
 package org.institutoserpis.juanminm.gventa;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,6 +33,18 @@ public class VentaMain {
 	private static <T> void showAll(Class<T> itemClass) {
 		String table = itemClass.getSimpleName().toLowerCase();
 		showAll(String.format("from %s order by id", table), itemClass);
+	}
+
+	private static void newArticulo(String name, BigDecimal price,
+			Categoria category) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Articulo articulo = new Articulo();
+		articulo.setNombre(name);
+		articulo.setPrecio(price);
+		articulo.setCategoria(category);
+		entityManager.persist(articulo);
+		entityManager.getTransaction().commit();
 	}
 
 }
