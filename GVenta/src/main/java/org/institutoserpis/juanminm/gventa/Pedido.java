@@ -2,6 +2,7 @@ package org.institutoserpis.juanminm.gventa;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,7 +28,7 @@ public class Pedido {
 	private Cliente cliente;
 
 	@Column(name = "`fecha`")
-	private String fecha;
+	private Calendar fecha;
 
 	@Column(name = "`importe`")
 	private BigDecimal importe;
@@ -39,7 +40,7 @@ public class Pedido {
 	public Pedido() {
 	}
 
-	public Pedido(Cliente cliente, String fecha, BigDecimal importe) {
+	public Pedido(Cliente cliente, Calendar fecha, BigDecimal importe) {
 		this.cliente = cliente;
 		this.fecha = fecha;
 		this.importe = importe;
@@ -61,11 +62,11 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public String getFecha() {
+	public Calendar getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Calendar fecha) {
 		this.fecha = fecha;
 	}
 
@@ -88,7 +89,12 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return String.format("[%s] %s %s ($s)", id, cliente, fecha, importe);
+		return String.format("[%s] %s %s ($s)",
+				id,
+				fecha.getTime().toString(),
+				importe,
+				cliente.toString()
+		);
 	}
 
 }
