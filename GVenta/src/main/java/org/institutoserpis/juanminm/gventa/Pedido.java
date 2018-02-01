@@ -80,6 +80,13 @@ public class Pedido {
 		this.importe = importe;
 	}
 
+	public void updateImporte() {
+		importe = new BigDecimal(0);
+
+		for (PedidoLinea pedidoLinea : pedidoLineas)
+			importe.add(pedidoLinea.getImporte());
+	}
+
 	public PedidoLinea[] getPedidoLineas() {
 		return pedidoLineas.toArray(new PedidoLinea[pedidoLineas.size()]);
 		//return pedidoLineas;
