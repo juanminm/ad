@@ -1,4 +1,4 @@
-package org.institutoserpis.juanminm.gventa;
+package org.institutoserpis.juanminm.gselling;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class VentaMain {
+public class SellingMain {
 
 	private static EntityManagerFactory entityManagerFactory;
 
 	public static void main(String[] args) {
 		entityManagerFactory = Persistence.createEntityManagerFactory(
-				"org.institutoserpis.juanminm.gventa"
+				"org.institutoserpis.juanminm.gselling"
 		);
-		showAll(Articulo.class);
+		showAll(Product.class);
 		entityManagerFactory.close();
 	}
 
@@ -35,15 +35,19 @@ public class VentaMain {
 		showAll(String.format("from %s order by id", table), itemClass);
 	}
 
-	private static void newArticulo(String name, BigDecimal price,
-			Categoria category) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+	private static void newProduct(
+			String name, BigDecimal price, long categoryId
+	) {
+		EntityManager entityManager = entityManagerFactory
+				.createEntityManager();
+		Category category = entityManager
+				.getReference(Category.class, categoryId);
 		entityManager.getTransaction().begin();
-		Articulo articulo = new Articulo();
-		articulo.setNombre(name);
-		articulo.setPrecio(price);
-		articulo.setCategoria(category);
-		entityManager.persist(articulo);
+		Product product = new Product();
+		product.setName(name);
+		product.setPrice(price);
+		category.add(product);
+		entityManager.persist(product);
 		entityManager.getTransaction().commit();
 	}
 
