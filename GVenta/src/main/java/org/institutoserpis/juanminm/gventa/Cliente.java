@@ -52,6 +52,16 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
+	public void add(Pedido pedido) {
+		pedidos.add(pedido);
+		pedido.setCliente(this);
+	}
+
+	public void remove(Pedido pedido) {
+		pedidos.remove(pedido);
+		pedido.setCliente(null);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[%s] %s", id, nombre);
