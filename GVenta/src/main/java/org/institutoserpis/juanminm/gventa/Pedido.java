@@ -3,6 +3,7 @@ package org.institutoserpis.juanminm.gventa;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -67,8 +68,8 @@ public class Pedido {
 		return fecha;
 	}
 
-	public void setFecha(Calendar fecha) {
-		this.fecha = fecha;
+	public void setFecha(Date fecha) {
+		this.fecha.setTime(fecha);
 	}
 
 	public BigDecimal getImporte() {
