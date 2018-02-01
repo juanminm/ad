@@ -29,8 +29,7 @@ public class Articulo {
 	)
 	private Categoria categoria;
 
-	public Articulo() {
-	}
+	public Articulo() {}
 
 	public Articulo(String nombre, BigDecimal precio, Categoria categoria) {
 		this.nombre = nombre;
