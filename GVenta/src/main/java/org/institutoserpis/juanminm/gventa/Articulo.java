@@ -1,6 +1,7 @@
 package org.institutoserpis.juanminm.gventa;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "articulo")
 public class Articulo {
@@ -28,6 +30,9 @@ public class Articulo {
 	foreignKey = @ForeignKey(name = "pedido_ibfk_1")
 	)
 	private Categoria categoria;
+
+	@OneToMany(mappedBy = "articulo")
+	private List<PedidoLinea> pedidoLineas;
 
 	public Articulo() {}
 
@@ -67,6 +72,19 @@ public class Articulo {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public List<PedidoLinea> getPedidoLineas() {
+		return pedidoLineas;
+	}
+
+	public void setPedidoLineas(List<PedidoLinea> pedidoLineas) {
+		this.pedidoLineas = pedidoLineas;
+	}
+
+	public void add(PedidoLinea pedidoLinea) {
+		pedidoLineas.add(pedidoLinea);
+		pedidoLinea.setArticulo(this);
 	}
 
 	@Override
