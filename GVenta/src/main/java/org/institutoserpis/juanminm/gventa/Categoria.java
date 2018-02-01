@@ -44,6 +44,24 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 
+	public List<Articulo> getArticulos() {
+		return articulos;
+	}
+
+	public void setArticulos(List<Articulo> articulos) {
+		this.articulos = articulos;
+	}
+
+	public void add(Articulo articulo) {
+		articulos.add(articulo);
+		articulo.setCategoria(this);
+	}
+
+	public void remove(Articulo articulo) {
+		articulos.remove(articulo);
+		articulo.setCategoria(null);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[%s] %s", id, nombre);
