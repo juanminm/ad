@@ -91,6 +91,10 @@ public class Pedido {
 		return pedidoLineas.toArray(new PedidoLinea[pedidoLineas.size()]);
 	}
 
+	public void setPedidoLineas(List<PedidoLinea> pedidoLineas) {
+		this.pedidoLineas = pedidoLineas;
+	}
+
 	public void add(PedidoLinea pedidoLinea) {
 		pedidoLineas.add(pedidoLinea);
 		pedidoLinea.setPedido(this);
