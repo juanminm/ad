@@ -89,7 +89,6 @@ public class Pedido {
 
 	public PedidoLinea[] getPedidoLineas() {
 		return pedidoLineas.toArray(new PedidoLinea[pedidoLineas.size()]);
-		//return pedidoLineas;
 	}
 
 	public void add(PedidoLinea pedidoLinea) {
