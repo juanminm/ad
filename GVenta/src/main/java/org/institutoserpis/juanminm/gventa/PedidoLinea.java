@@ -68,6 +68,9 @@ public class PedidoLinea {
 
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
+		precio = articulo.getPrecio();
+		unidades = new BigDecimal(1);
+		updateImporte();
 	}
 
 	public BigDecimal getPrecio() {
@@ -76,6 +79,7 @@ public class PedidoLinea {
 
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
+		updateImporte();
 	}
 
 	public BigDecimal getUnidades() {
@@ -84,6 +88,7 @@ public class PedidoLinea {
 
 	public void setUnidades(BigDecimal unidades) {
 		this.unidades = unidades;
+		updateImporte();
 	}
 
 	public BigDecimal getImporte() {
@@ -92,6 +97,10 @@ public class PedidoLinea {
 
 	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
+	}
+
+	public void updateImporte() {
+		this.importe = precio.multiply(unidades);
 	}
 
 	@Override
