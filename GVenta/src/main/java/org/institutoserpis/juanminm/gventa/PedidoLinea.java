@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "pedidolinea")
 public class PedidoLinea {
@@ -16,11 +16,11 @@ public class PedidoLinea {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "pedido")
 	private Pedido pedido;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "articulo")
 	private Articulo articulo;
 
