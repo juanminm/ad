@@ -30,7 +30,7 @@ public class Pedido {
 	private Cliente cliente;
 
 	@Column(name = "`fecha`")
-	private Calendar fecha;
+	private Calendar fecha = Calendar.getInstance();
 
 	@Column(name = "`importe`")
 	private BigDecimal importe;
